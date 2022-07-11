@@ -1,0 +1,14 @@
+---
+- name: install and start yum-cron
+  hosts: localhost
+  tasks:
+    - name: install yum-cron 
+      yum:
+        name: yum-cron
+        state: latest
+    - name: enable and start yum-cron
+      systemd:
+        name: yum-cron
+        enabled: yes
+        state: started
+
