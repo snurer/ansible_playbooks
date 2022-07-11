@@ -1,17 +1,35 @@
-# simple ansible playbook exercises
+# Ansible Playbook Exercies
 
-  
-it includes creating a directory under /tmp folder
-  
-  
+This repository includes simple ansible playbooks to exercise modules and commands.  
 
-  
-moving /etc/passwd file to /tmp/copy_passwd
-  
+## Automation
 
-  
-and
-  
+Use these playbooks to automate the following actions for Centos7:
 
-  
-installing & running apache
+## Install and start Apache
+
+```bash
+yum install httpd -y
+systemctl enable httpd
+systemctl start apache
+```
+
+## Copy file from /etc/passwd to /tmp/copy_passwd
+
+```
+cp /etc/passwd /tmp/copy_passwd
+```
+
+## Create a directory under /tmp
+
+```
+mkdir /tmp/test-ansible
+```
+
+## Install and Start yum-cron
+
+```
+yum install yum-cron -y
+systemctl enable yum-cron
+systemctl start yum-cron
+```
