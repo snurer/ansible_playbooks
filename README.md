@@ -33,3 +33,5 @@ yum install yum-cron -y
 systemctl enable yum-cron
 systemctl start yum-cron
 ```
+
+## Ensure NTP is installed and running
