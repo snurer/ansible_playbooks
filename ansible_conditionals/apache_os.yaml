@@ -1,0 +1,22 @@
+---
+- name: install and start apache on Centos7 and Ubuntu
+  hosts: localhost
+  tasks:
+    - name: install apache on CentOS7
+      when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
+      yum: name=httpd state=present
+    - name: start apache on centos7
+      systemd: name=httpd state=started enabled=yes
+      ignore_errors: True
+    
+    - name: install apache on Ubuntu (all versions)
+      when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "20")
+      apt: name=apache2 state=latest
+      ignore_errors: True
+    
+    - name: start apache on Ubuntu
+      when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "20")
+      service: name=apache2 enabled=yes state=started
+      ignore_errors: True
+
+        
