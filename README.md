@@ -41,3 +41,5 @@ yum install ntp -y
 systemctl enable ntpd
 systemctl restart ntpd
 ```
+
+Feel free to clone and work on the playbooks.
