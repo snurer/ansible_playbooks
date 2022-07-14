@@ -12,7 +12,6 @@
     - name: install apache on Ubuntu (all versions)
       when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "20")
       apt: name=apache2 state=latest
-      ignore_errors: True
     
     - name: start apache on Ubuntu
       when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "20")
