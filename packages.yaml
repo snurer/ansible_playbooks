@@ -1,6 +1,8 @@
 ---
 - name: Install vim, curl and wget
-  hosts: localhost
+  hosts:
+   - host1
+   - host2
   tasks:
     - name: Install vim
       yum:
