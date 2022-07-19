@@ -1,0 +1,12 @@
+---
+- name: install apache with different package managers
+  hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+    - name: install apache if the package manager is yum
+      when: "{{ ansible_pkg_mgr == 'yum'}}"
+      yum: name=httpd state=present
+    - name: install apache when the package manager is apt
+      when: "{{ ansible_pkg_mgr == 'apt'}}"
+      apt: name=apache2 state=latest
