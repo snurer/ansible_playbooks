@@ -23,5 +23,3 @@
       user: name=tom group=admins uid=2500
     - name: create a directory for user tom
       file: state=directory owner=tom mode=0765 path=/home/tom/folder1
-
-    
