@@ -2,6 +2,13 @@
 all:
   hosts:
     host1:
-      ansible_host: 64.225.23.251
+      ansible_host: 10.108.0.4
     host2:
-      ansible_host: 165.227.187.235
+      ansible_host: 10.108.0.5
+  children:
+    group1:
+      hosts:
+        10.108.0.4:
+    group2:
+      hosts:
+        10.108.0.5:

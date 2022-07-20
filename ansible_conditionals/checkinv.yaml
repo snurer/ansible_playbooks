@@ -1,0 +1,15 @@
+---
+- name: ping if host1 is under myinventory.yaml
+  hosts: all
+    tasks:
+      - name: find host1 under myinventory
+        lineinfile:
+          path: /root/git_repositories/ansible_playbooks/myinventory.yaml
+          line: host1
+          state: present
+          register: result
+      - name: ping host1
+        when: result is succeeded
+        ping:
+        
+       
