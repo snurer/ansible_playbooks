@@ -1,5 +1,5 @@
 ---
-- name: Install ann Start Apache
+- name: Install and Start Apache
   hosts: localhost
   tasks:
     - name: Install Apache
