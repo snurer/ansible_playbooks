@@ -43,7 +43,7 @@
       systemd: name=httpd enabled=yes state=restarted
 
 ## Play2: Install&Unarchive Wordpress
-- name: Download wordpress
+- name: Download and unarchive Wordpress
   hosts: localhost
   tasks:
     - name: 
