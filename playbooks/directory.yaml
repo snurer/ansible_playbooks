@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   tasks:
-  - name: create a directory
+  - name: create a directory under /tmp
     file:
         path: /tmp/test-ansible
         state: directory
