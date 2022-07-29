@@ -1,7 +1,7 @@
 ---
 - name: Ping Servers
   hosts: all
-  gather_facts: false
+  gather_facts: false #no need to gather facts
   tasks:
     - name: ping
       ping:
