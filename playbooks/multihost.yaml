@@ -1,5 +1,6 @@
 ---
 # Add multiple plays for multiple hosts
+# Hosts must be specified in an invertory file
 # Play1 - add users in host1
 - name: Add users bob and jane
   hosts: host1
