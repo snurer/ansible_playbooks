@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   tasks:
-  - name: copy file
+  - name: copy file to /tmp
     copy:
       src: /etc/passwd
       dest: /tmp/copy_passwd
