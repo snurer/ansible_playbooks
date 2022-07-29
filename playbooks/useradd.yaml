@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  tasks:
+  - name: add user bob with specific id and comment
+    user: name=bob uid=2300 comment="System Admin"

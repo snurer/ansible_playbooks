@@ -1,0 +1,22 @@
+---
+- name: Create a droplet on Digital Ocean
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - keys.yaml
+  tasks:
+    - name: create a new droplet
+      digital_ocean_droplet:
+        state: present
+        name: ansible-test
+        private_networking: yes
+        image_id: centos-7-x64
+        region: nyc3
+        size: s-1vcpu-1gb
+        ssh_keys: "{{ Ansible_SSH_Key }}"
+        oauth_token: "{{ DO_api_token }}"
+        unique_name: yes
+      register: do
+    - name: print the output
+      debug:
+        var: do

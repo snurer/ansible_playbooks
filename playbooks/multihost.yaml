@@ -1,0 +1,25 @@
+---
+# Add multiple plays for multiple hosts
+# Play1 - add users in host1
+- name: Add users bob and jane
+  hosts: host1
+  become: yes
+  become_user: root
+  tasks:
+    - name: create user bob
+      user: name=bob uid=1500 group=wheel comment="System Admin"
+    - name: create user jane
+      user: name=jane uid=1300 shell=/bin/bash
+
+# Play2 - add user and create a directory in host2
+- name: create user tom and a directory under host2
+  hosts: host2
+  become: yes
+  become_user: root
+  tasks:
+    - name: create user group named "admins"
+      group: name=admins state=present
+    - name: create user tom
+      user: name=tom group=admins uid=2500
+    - name: create a directory for user tom
+      file: state=directory owner=tom mode=0765 path=/home/tom/folder1
