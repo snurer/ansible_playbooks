@@ -1,5 +1,5 @@
 ---
-- name: Install and Start Apache
+- name: Install and Start Apache on Centos
   hosts: localhost
   tasks:
     - name: Install Apache
