@@ -2,7 +2,7 @@
 - name: add lines to a myfile - version2
   hosts: localhost
   tasks:
-    - name: add lines
+    - name: add lines to myfile
       blockinfile:
         path: /root/git_repositories/ansible_playbooks/myfile
         create: yes
