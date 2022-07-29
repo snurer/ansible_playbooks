@@ -1,5 +1,5 @@
 ---
-- name: get server stats
+- name: get server stats and print the output
   hosts: all
   tasks:
     - name: check memory
