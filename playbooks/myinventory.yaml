@@ -7,7 +7,7 @@ all:
       ansible_host: 10.108.0.6
     host3:
       ansible_host: 10.108.0.5
-  children:
+  children: #groups
     centos:
       hosts:
         10.108.0.4:
