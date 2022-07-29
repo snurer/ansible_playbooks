@@ -1,7 +1,0 @@
----
-- name: print eth0
-  hosts: localhost
-  tasks:
-    - name:
-      debug:
-        var: ansible_eth0
