@@ -1,22 +1,88 @@
 ---
+## Create a new Droplet
 - name: Create a droplet on Digital Ocean
   hosts: localhost
   gather_facts: false
   vars_files:
     - keys.yaml
+## have a seprate var file for droplet values and generate it with shell script
+#    - droplet.yaml
+
+  vars_prompt:
+    - name: droplet_name
+      prompt: "Enter Droplet Name"
+      private: no
+
+    - name: droplet_image
+      prompt: "Enter Droplet Image\n
+      Example: .\n centos-7-x64\n centos-stream-8-x64\n ubuntu-20-04-x64\n debian-11-x64\n fedora-36-x64\n"
+      private: no
+
+    - name: droplet_size
+      prompt: "Enter Droplet Size\n
+      Example: .\n s-1vcpu-1gb\n s-2vcpu-2gb\n s-2vcpu-4gb\n s-4vcpu-8gb\n s-6vcpu-16gb\n s-8vcpu-32gb\n s-16vcpu-64gb\n s-24vcpu-128gb\n s-32vcpu-192gb\n"
+      private: no
+
+    - name: droplet_region
+      prompt: "Enter Droplet Region\n
+      Example: .\n nyc1\n sfo1\n nyc2\n ams2\n sgp1\n lon1\n nyc3\n ams3\n fra1\n tor1\n sfo2\n blr1\n sfo3"
+      private: no
+
+
   tasks:
     - name: create a new droplet
       digital_ocean_droplet:
         state: present
-        name: ansible-test
+        name: "{{ droplet_name }}"
         private_networking: yes
-        image_id: centos-7-x64
-        region: nyc3
-        size: s-1vcpu-1gb
+        image_id: "{{ droplet_image }}"
+        region: "{{ droplet_region }}"
+        size: "{{ droplet_size }}"
         ssh_keys: "{{ Ansible_SSH_Key }}"
         oauth_token: "{{ DO_api_token }}"
         unique_name: yes
+        wait: yes
       register: do
+
     - name: print the output
       debug:
-        var: do
+        msg: "ID is {{ do.data.droplet.id }}, IP is {{ do.data.ip_address }}"
+
+## Add the new server to my inventory
+    - name: add hosts
+      add_host:
+        name: "{{ do.data.ip_address }}"
+        groups: "do"
+        ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'
+        inventory_dir: inventory.yaml
+      when: do.data is defined
+      changed_when: false
+    
+    - name: save ip and hostname to my inventory
+      become: yes
+      lineinfile:
+        path: inventory.yaml
+        regexp: '^do:'
+        line: '          ansible_host: "{{ do.data.ip_address }}"'
+
+- name: play a task in the new server
+  hosts: do
+  gather_facts: no
+  tasks:
+    - name: wait before the target connection to be reachable
+      wait_for_connection:
+        timeout: 30
+
+    - name: ping server
+      ping:
+
+    - name: install apache
+      yum:
+        name: httpd
+        state: latest
+      
+
+    
+
+
+    
